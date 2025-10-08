@@ -14,3 +14,8 @@ helm install datadog-operator datadog/datadog-operator
 kubectl create secret generic datadog-secret --from-literal api-key=<PLACEHOLDER>
 
 kubectl run -it --image=jrecord/nettools nettools --restart=Never
+
+
+echo "import http from 'k6/http'; export default function(){ http.get('http://rollout-demo'); }" | k6 run --vus 1 --iterations 1000 -
+
+echo "import http from 'k6/http'; export default function(){ http.get('http://rollout-demo'); }" | k6 run --vus 10 --duration 90s -

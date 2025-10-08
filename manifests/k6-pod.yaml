@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: k6-test
+  labels:
+    app: k6
+spec:
+  restartPolicy: Never
+  containers:
+  - name: k6
+    image: grafana/k6:latest
+    command: ["sleep", "infinity"]
