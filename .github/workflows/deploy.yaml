@@ -1,0 +1,45 @@
+name: Deploy to Argo CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.github/workflows/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create GitHub Deployment
+      id: create_deployment
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      run: |
+        curl -X POST https://api.github.com/repos/${{ github.repository }}/deployments \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          -d '{
+            "ref": "${{ github.sha }}",
+            "environment": "production",
+            "description": "Argo CD deployment triggered",
+            "required_contexts": [],
+            "auto_merge": false
+          }'
+
+    # - name: Patch ArgoCD Application
+    #   run: |
+    #     curl -X PATCH https://your-argocd-server/api/v1/applications/YOUR_APP_NAME \
+    #       -H "Authorization: Bearer $ARGOCD_TOKEN" \
+    #       -H "Content-Type: application/json" \
+    #       -d '{
+    #         "metadata": {
+    #           "annotations": {
+    #             "notifications.argoproj.io/github-deployment-id": "'"${{ steps.create_deployment.outputs.deployment_id }}"'"
+    #           }
+    #         }
+    #       }'
+    # SYNC the application :)

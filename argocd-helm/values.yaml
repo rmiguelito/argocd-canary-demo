@@ -1,0 +1,13 @@
+global:
+  domain: argocd.test.io
+
+configs:
+  params:
+    server.insecure: true
+  cm:
+    k8s.plugin.rollouts.enabled: "true"
+  extensions:
+    enabled: true    
+
+dex:
+  enabled: false
