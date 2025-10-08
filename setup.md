@@ -12,3 +12,5 @@ kubectl port-forward service/argocd-server 8080:443 &
 helm repo add datadog https://helm.datadoghq.com
 helm install datadog-operator datadog/datadog-operator
 kubectl create secret generic datadog-secret --from-literal api-key=<PLACEHOLDER>
+
+kubectl run -it --image=jrecord/nettools nettools --restart=Never
