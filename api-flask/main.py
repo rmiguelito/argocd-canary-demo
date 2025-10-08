@@ -1,19 +1,18 @@
-  from flask import Flask
-  import random
+from flask import Flask
+import random
 
-  app = Flask(__name__)
-  
-  quotes = [
-      "Strive not to be a success, but rather to be of value. - Albert Einstein",
-      "Believe you can and you're halfway there. - Theodore Roosevelt",
-      "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
-  ]
-  
-  @app.route('/')
-  def index():
-      quote = random.choice(quotes)+"\n"
-      return quote
-  
-  if __name__ == '__main__':
-      app.run(host='0.0.0.0', port=8080)
-  
+app = Flask(__name__)
+
+quotes = [
+    "Strive not to be a success, but rather to be of value. - Albert Einstein",
+    "Believe you can and you're halfway there. - Theodore Roosevelt",
+    "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
+]
+
+@app.route("/")
+def index():
+    quote = random.choice(quotes) + "\n"
+    return quote
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
